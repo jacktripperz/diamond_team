@@ -121,8 +121,8 @@ def itterate(nextCycleId, nextCycleType):
     
     print("********** STATS *******")
     print(f"{timestampStr} Next cycle type: {nextCycleType}")
-    print(f"{timestampStr} Total value: {accountValue:.4f} BNB")
-    print(f"{timestampStr} Payout available for reinvest/withdrawal: {payoutToReinvest:.4f}")
+    print(f"{timestampStr} Total value: {accountValue:.5f} BNB")
+    print(f"{timestampStr} Payout available for reinvest/withdrawal: {payoutToReinvest:.8f}")
     print(f"{timestampStr} Start polling each {(loop_sleep_seconds / 60):.2f} minute {(start_polling_threshold_in_seconds / 60):.3f} minutes before next cycle")
     print("************************")
 
@@ -136,22 +136,22 @@ def itterate(nextCycleId, nextCycleType):
             reinvest()
         if nextCycleType == "withdraw":
             withdraw()
-
-        print(f"{timestampStr} Sleeping for 1 min until next cycle starts..")
-        countdown(60)
         
         if nextCycleType == "reinvest":
             print("********** REINVESTED *******")
-            print(f"{timestampStr} Added {payoutToReinvest:.5f} BNB to the pool!")
+            print(f"{timestampStr} Added {payoutToReinvest:.8f} BNB to the pool!")
         if nextCycleType == "withdraw":
             print("********** WITHDREW *********")
-            print(f"{timestampStr} Sold {payoutToReinvest:.5f} BNB!")
+            print(f"{timestampStr} Sold {payoutToReinvest:.8f} BNB!")
 
         nextCycleId = getNextCycleId(nextCycleId)
         nextCycleType = findCycleType(nextCycleId)
         print(f"{timestampStr} Next cycleId is: {nextCycleId}")
         print(f"{timestampStr} Next cycle type will be: {nextCycleType}")
         print("**************************")
+
+        print(f"{timestampStr} Sleeping for 1 min until next cycle starts..")
+        countdown(60)
  
 
 retryCount = 0
