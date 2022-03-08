@@ -42,11 +42,11 @@ nextCycleId = 7
 
 # methods
 def reinvest():
-    txn = dm_contract.functions.plantSeeds(wallet_public_addr).buildTransaction(c.get_tx_options(wallet_public_addr, 500000))
+    txn = dm_contract.functions.reinvest().buildTransaction(c.get_tx_options(wallet_public_addr, 500000))
     return c.send_txn(txn, wallet_private_key)
 
 def withdraw():
-    txn = dm_contract.functions.sellSeeds().buildTransaction(c.get_tx_options(wallet_public_addr, 500000))
+    txn = dm_contract.functions.withdraw().buildTransaction(c.get_tx_options(wallet_public_addr, 500000))
     return c.send_txn(txn, wallet_private_key)
 
 def payout_to_reinvest():
@@ -122,7 +122,7 @@ def itterate(nextCycleId, nextCycleType):
     if secondsUntilCycle > start_polling_threshold_in_seconds:
         sleep = secondsUntilCycle - start_polling_threshold_in_seconds
             
-    if payoutToReinvest >= cycleMinimumBnb:
+    if secondsUntilCycle <= 1 and payoutToReinvest >= cycleMinimumBnb:
         if nextCycleType == "reinvest":
             reinvest()
         if nextCycleType == "withdraw":
