@@ -10,7 +10,7 @@ dm_contract_addr = "0x3AEDafF8FB09A4109Be8c10CF0c017d3f1F7DcDc"
 wallet_public_addr = "0x361472B5784e83fBF779b015f75ea0722741f304"
 loop_sleep_seconds = 2
 margin_of_error = 0.1
-start_polling_threshold_in_seconds = 10
+start_polling_threshold_in_seconds = 0
 
 # load private key
 wallet_private_key = open('key.txt', "r").readline()
@@ -49,12 +49,15 @@ def withdraw():
     txn = dm_contract.functions.withdraw().buildTransaction(c.get_tx_options(wallet_public_addr, 500000))
     return c.send_txn(txn, wallet_private_key)
 
+def get_user_info():
+    return dm_contract.functions.userInfo(wallet_public_addr).call()
+
+def get_user_payout():
+    return dm_contract.functions.payoutOf(wallet_public_addr).call()
+
 def payout_to_reinvest():
     total = dm_contract.functions.payoutToReinvest(wallet_public_addr).call()
     return total/1000000000000000000
-
-def get_user_info():
-    return dm_contract.functions.userInfo(wallet_public_addr).call()
 
 def buildTimer(t):
     mins, secs = divmod(int(t), 60)
@@ -99,13 +102,17 @@ def seconds_until_cycle():
 
 # create infinate loop that checks contract every set sleep time
 nextCycleType = findCycleType(nextCycleId)
-
 def itterate(nextCycleId, nextCycleType):
     cycleMinimumBnb = findCycleMinimumBnb(nextCycleId)
-    payoutToReinvest = payout_to_reinvest()
     secondsUntilCycle = seconds_until_cycle()
     userInfo = get_user_info()
+    payoutInfo = get_user_payout()
     accountValue = userInfo[2]/1000000000000000000
+    directBonus = userInfo[4]/1000000000000000000
+    poolBonus = userInfo[5]/1000000000000000000
+    matchBonus = userInfo[6]/1000000000000000000
+    dailyPayout = payout_to_reinvest()
+    payoutToReinvest = dailyPayout + directBonus + poolBonus + matchBonus
 
     dateTimeObj = datetime.now()
     timestampStr = dateTimeObj.strftime("[%d-%b-%Y (%H:%M:%S)]")
@@ -114,19 +121,24 @@ def itterate(nextCycleId, nextCycleType):
     
     print("********** STATS *******")
     print(f"{timestampStr} Next cycle type: {nextCycleType}")
-    print(f"{timestampStr} Total value: {accountValue} BNB")
+    print(f"{timestampStr} Total value: {accountValue:.4f} BNB")
     print(f"{timestampStr} Payout available for reinvest/withdrawal: {payoutToReinvest:.4f}")
     print(f"{timestampStr} Start polling each {(loop_sleep_seconds / 60):.2f} minute {(start_polling_threshold_in_seconds / 60):.3f} minutes before next cycle")
     print("************************")
 
     if secondsUntilCycle > start_polling_threshold_in_seconds:
         sleep = secondsUntilCycle - start_polling_threshold_in_seconds
-            
-    if secondsUntilCycle <= 1 and payoutToReinvest >= cycleMinimumBnb:
+
+    countdown(int(sleep))
+
+    if payoutToReinvest >= cycleMinimumBnb:
         if nextCycleType == "reinvest":
             reinvest()
         if nextCycleType == "withdraw":
             withdraw()
+
+        print(f"{timestampStr} Sleeping for 1 min until next cycle starts..")
+        countdown(60)
         
         if nextCycleType == "reinvest":
             print("********** REINVESTED *******")
@@ -140,8 +152,7 @@ def itterate(nextCycleId, nextCycleType):
         print(f"{timestampStr} Next cycleId is: {nextCycleId}")
         print(f"{timestampStr} Next cycle type will be: {nextCycleType}")
         print("**************************")
-
-    countdown(int(sleep))
+ 
 
 retryCount = 0
 while True:
