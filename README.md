@@ -85,9 +85,9 @@ Each cycle is defined by one item. Set as many items you want - just make sure t
 The following is an example of a cycle:
 ```py
 cycle.append( cycleItem(1, "reinvest", 0.002) )
-cycle.append( cycleItem(1, "reinvest", 0.002) )
-cycle.append( cycleItem(1, "reinvest", 0.002) )
-cycle.append( cycleItem(1, "withdraw", 0.002) )
+cycle.append( cycleItem(2, "reinvest", 0.002) )
+cycle.append( cycleItem(3, "reinvest", 0.002) )
+cycle.append( cycleItem(4, "withdraw", 0.002) )
 ```
 
 Defaults for the cycle is only to `reinvest`.
