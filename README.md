@@ -1,20 +1,29 @@
-# Drip Intro
+# My DiamondTeam v2 Intro
 
-[Drip](https://drip.community) is a deflationary daily ROI platform that allows
-you to earn 1% daily return on your investment sustainably through a tax system
+The "My DiamondTeam v2", or for short MDVT, is a deflationary daily ROI platform that allows
+you to earn up to 1.5% daily return on your investment sustainably through a tax system
 on transactions. It also allows team building through a referral system, and most
-importantly, compound interest. 
+importantly, compound interest AND 5% bonus on each re-invest of your rewards. 
 
+## Disclaimer
+Signing transactions via this script requires the use of a wallet's private key, meaning you need to handle your private key locally on the computer from which you want to run this script on.
+By using this script you agrees to take full responsibility for your private key and wallets security!
+I take no responsibility in lost funds, wallets or anything related to using this script.
 
-## The Faucet
+## Prerequisites
+1. A clean and secure computer/nuc/raspberry pi that can run 24/7.
+2. Minor programming knowledge
 
-The [Faucet](https://drip.community/faucet) is a low-risk, high reward contract that operates similar to a high yield 
-certificate of deposit. You can participate by purchasing drip from the [swap page](https://drip.community/fountain).
+## The MDVT
 
-It is necessary, depending on your deposit size, to compound up to several times a day. The purpose of this code
-is to do this automatically for you so you don't have to. 
+The [MDVT](https://mydiamondteam.online/v2/?ref=0x361472b5784e83fbf779b015f75ea0722741f304) is a low risk, high reward contract that operates similar to a high yield 
+certificate of deposit. You can participate by purchasing the token through these steps: 
+1. Go to [MDVT webpage](https://mydiamondteam.online/v2/?ref=0x361472b5784e83fbf779b015f75ea0722741f304) and deposit a minimum of 0.1 BNB 
 
-## Setup Autohydrater
+Everytime you re-invest your rewards, you earn a 5 bonus on the amount you re-invest. So in order to get the most of it, it is essential to re-invest every day. 
+The purpose of this code is to do this automatically for you so you don't have to. 
+
+## Setup
 
 This code was specifically written to be as secure as possible, since signing transactions requires the use of
 a wallet's private key. It's imparative you use the encryption outlined in the code to best protect yourself
@@ -27,42 +36,71 @@ you through installing Python depending on your operating system.
 2. Once Python is installed, the following packages need to be installed.
 
 web3, cryptography, python-dotenv
- 
-```bash
+ ```bash
 $ python -m pip install web3
 $ python -m pip install cryptography
 $ python -m pip install python-dotenv
 ```
 
 3. In a python terminal, import `cryptography` and encrypt your private key
-
 ```py
->>>import cryptography
+>>>from cryptography.fernet import Fernet
 >>>key = Fernet.generate_key()
->>>fernet = Fernet(key.encode())
+```
+
+4. Open `.env.example` and replace the key from above with the example one in the file. Save the file without '.example' at the end. Make sure the file type is saved as 'ENV'. 
+
+5. Go back to the python terminal and do the following:
+```py
+>>>fernet = Fernet(key)
 >>>encMessage = fernet.encrypt('YOURKEYHERE'.encode())
 >>>encMessage.decode()
 ```
 
-4. Take the value in `encMessage`, create a file called `key.txt` and save the text in the file 
+6. Take the output value from the last line `encMessage.decode()`, create a file called `key.txt` and save the output in the file. 
+7. Save the `key.text` to the root of the project.
 
-5. Open `.env.example` and replace the key with the key you generated in step 3. Save the file without .example at the end. 
+8. Open the `bank.py` file and replace the string stored in `wallet_public_addr` with your own public wallet.
 
-6. Open the `hydrate.py` file and replace the string stored in `wallet_public_addr` with your own public wallet.
+## Usage
 
-## Using the Autohydrater
-
-In a terminal window, navigate to the location where you saved all the files. Run the `hydrate.py` file.
+In a terminal window, navigate to the location where you saved all the files. Run the `diamond_cycle.py` file.
 
 ```bash
-$ python hydrate.py
+$ python diamond_cycle.py
 ```
 
-This terminal window will always need to remain open for the autohydrater to function. If the terminal window closes, just execute
-`hydrate.py` again.
+This terminal window will always need to remain open for the script to function. If the terminal window closes, just execute
+`python diamond_cycle.py` again.
 
-If this autohydrater helps you, consider supporting me by sending me an airdrop. 
+## Cycle settings
+The script includes a cycle-handler. This means that you can determine a cycle on when to `reinvest` and when to `withdraw`.
+Open up the `diamond_cycle.py` and search for the section where the `cycle` is defined - it's around line 33.
+One cycle includes 3 inputs:
+- Id (1-indexed, meaning that the first cycle should always start with 1)
+- Type (either use `reinvest` or `withdraw`)
+- MinimumBnb (you might be able to reinvest because 24h has past but you only want to reinvest, when you have a minimum BNB of this value)
 
-**wallet:** *0xeDb0951cF765b6E19881497C407C39914D78c597*
+Each cycle is defined by one item. Set as many items you want - just make sure to increment the Id of each item. When the cycle ends, it starts again from the top.
+The following is an example of a cycle:
+```py
+cycle.append( cycleItem(1, "reinvest", 0.002) )
+cycle.append( cycleItem(1, "reinvest", 0.002) )
+cycle.append( cycleItem(1, "reinvest", 0.002) )
+cycle.append( cycleItem(1, "withdraw", 0.002) )
+```
 
-If you haven't already invested in the [Animal Farm](https://theanimalfarm/referrals/0xeDb0951cF765b6E19881497C407C39914D78c597), then I highly recommend you doing so!
+Defaults for the cycle is only to `reinvest`.
+
+# Donations
+If this script helps you, consider supporting me by sending an airdrop: 
+- **wallet:** *0x361472B5784e83fBF779b015f75ea0722741f304*
+
+Or using my referral code:
+- [My DiamondTeam v2](https://mydiamondteam.online/v2/?ref=0x361472b5784e83fbf779b015f75ea0722741f304)
+
+
+# Other projects to take a look at:
+- [DRIP Faucet](https://drip.community/faucet?buddy=0x361472B5784e83fBF779b015f75ea0722741f304) - 1% per day - low risk, high reward, no decay! Get the [auto-script here](https://github.com/jacktripperz/hydrator)
+- [Animal Farm, PiggyBank](https://theanimal.farm/piggybank/0x361472B5784e83fBF779b015f75ea0722741f304) - 3% per day - high risk, high reward! Get the [auto-script here](https://github.com/jacktripperz/piggybanker)
+- [Animal Farm, Garden](https://theanimal.farm/referrals/0x361472B5784e83fBF779b015f75ea0722741f304) - 3% per day, high risk, high reward! Get the [auto-script here](https://github.com/jacktripperz/planter)
