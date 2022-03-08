@@ -8,7 +8,7 @@ import json
 
 dm_contract_addr = "0x3AEDafF8FB09A4109Be8c10CF0c017d3f1F7DcDc"
 wallet_public_addr = "0x361472B5784e83fBF779b015f75ea0722741f304"
-loop_sleep_seconds = 0.5
+loop_sleep_seconds = 2
 margin_of_error = 0.1
 start_polling_threshold_in_seconds = 10
 
@@ -31,13 +31,13 @@ class cycleItem:
 
 # cycle types are "reinvest" or "withdraw"
 cycle = [] 
-cycle.append( cycleItem(1, "reinvest", 0.01) )
-cycle.append( cycleItem(2, "reinvest", 0.01) )
-cycle.append( cycleItem(3, "reinvest", 0.01) )
-cycle.append( cycleItem(4, "reinvest", 0.01) )
-cycle.append( cycleItem(5, "reinvest", 0.01) )
-cycle.append( cycleItem(6, "reinvest", 0.01) )
-cycle.append( cycleItem(7, "reinvest", 0.01) )
+cycle.append( cycleItem(1, "reinvest", 0.002) )
+cycle.append( cycleItem(2, "reinvest", 0.002) )
+cycle.append( cycleItem(3, "reinvest", 0.002) )
+cycle.append( cycleItem(4, "reinvest", 0.002) )
+cycle.append( cycleItem(5, "reinvest", 0.002) )
+cycle.append( cycleItem(6, "reinvest", 0.002) )
+cycle.append( cycleItem(7, "reinvest", 0.002) )
 nextCycleId = 7
 
 # methods
