@@ -15,7 +15,7 @@ The script relies on many things - such as blockchain congestion, dropped networ
 1. A clean and secure computer/nuc/raspberry pi that can run 24/7.
 2. Minor programming knowledge
 
-## The MDVT
+## The My DiamondTeam v2
 
 The [MDVT](https://mydiamondteam.online/v2/?ref=0x361472b5784e83fbf779b015f75ea0722741f304) is a low risk, high reward contract that operates similar to a high yield 
 certificate of deposit. You can participate by purchasing the token through these steps: 
