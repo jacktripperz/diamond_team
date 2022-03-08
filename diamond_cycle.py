@@ -123,10 +123,10 @@ def itterate(nextCycleId, nextCycleType):
         sleep = secondsUntilCycle - start_polling_threshold_in_seconds
             
     if payoutToReinvest >= cycleMinimumBnb:
-        # if nextCycleType == "reinvest":
-        #     reinvest()
-        # if nextCycleType == "withdraw":
-        #     withdraw()
+        if nextCycleType == "reinvest":
+            reinvest()
+        if nextCycleType == "withdraw":
+            withdraw()
         
         if nextCycleType == "reinvest":
             print("********** REINVESTED *******")
