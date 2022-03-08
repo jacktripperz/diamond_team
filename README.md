@@ -5,6 +5,15 @@ you to earn up to 1.5% daily return on your investment sustainably through a tax
 on transactions. It also allows team building through a referral system, and most
 importantly, compound interest AND 5% bonus on each re-invest of your rewards. 
 
+## Disclaimer
+Signing transactions via this script requires the use of a wallet's private key, meaning you need to handle your private key locally on the computer from which you want to run this script on.
+By using this script you agrees to take full responsibility for your private key and wallets security!
+I take no responsibility in lost funds, wallets or anything related to using this script.
+
+## Prerequisites
+1. A clean and secure computer/nuc/raspberry pi that can run 24/7.
+2. Minor programming knowledge
+
 ## The MDVT
 
 The [MDVT](https://mydiamondteam.online/v2/?ref=0x361472b5784e83fbf779b015f75ea0722741f304) is a low risk, high reward contract that operates similar to a high yield 
