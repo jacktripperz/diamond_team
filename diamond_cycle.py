@@ -3,7 +3,6 @@ import time
 import contract as c
 from datetime import datetime,timedelta
 import time
-import cloudscraper
 import json
 
 dm_contract_addr = "0x3AEDafF8FB09A4109Be8c10CF0c017d3f1F7DcDc"
