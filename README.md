@@ -80,7 +80,7 @@ Open up the `diamond_cycle.py` and search for the section where the `cycle` is d
 One cycle includes 3 inputs:
 - Id (1-indexed, meaning that the first cycle should always start with 1)
 - Type (either use `reinvest` or `withdraw`)
-- EndTimerAt specifies the time of day where the timer should end. Enabling you to set a strategy that executes every 24h, 12h or even 1h.
+- EndTimerAt (Specifies the time of day where the timer should end. Enabling you to set a strategy that executes every 24h, 12h or even 1h)
 - MinimumBnb (you might be able to reinvest because 24h has past but you only want to reinvest, when you have a minimum BNB of this value)
 
 Each cycle is defined by one item. Set as many items you want - just make sure to increment the Id of each item. When the cycle ends, it starts again from the top.
