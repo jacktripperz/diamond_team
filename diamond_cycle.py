@@ -10,6 +10,7 @@ wallet_public_addr = "0x361472B5784e83fBF779b015f75ea0722741f304"
 loop_sleep_seconds = 2
 margin_of_error = 0.1
 start_polling_threshold_in_seconds = 0
+countdownResetTime = "2000"
 
 # load private key
 wallet_private_key = open('key.txt', "r").readline()
@@ -37,7 +38,7 @@ cycle.append( cycleItem(4, "reinvest", 0.002) )
 cycle.append( cycleItem(5, "reinvest", 0.002) )
 cycle.append( cycleItem(6, "reinvest", 0.002) )
 cycle.append( cycleItem(7, "reinvest", 0.002) )
-nextCycleId = 7
+nextCycleId = 1
 
 # methods
 def reinvest():
@@ -95,7 +96,7 @@ def getNextCycleId(currentCycleId):
 
 def seconds_until_cycle():
     time_delta = datetime.combine(
-        datetime.now().date() + timedelta(days=1), datetime.strptime("2000", "%H%M").time()
+        datetime.now().date() + timedelta(days=1), datetime.strptime(countdownResetTime, "%H%M").time()
     ) - datetime.now()
     return time_delta.seconds
 

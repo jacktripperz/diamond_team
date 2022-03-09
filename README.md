@@ -93,6 +93,13 @@ cycle.append( cycleItem(4, "withdraw", 0.002) )
 
 Defaults for the cycle is only to `reinvest`.
 
+## Countdown settings
+Open up the `diamond_cycle.py`. In the top of the file you will find the variable called `countdownResetTime`.
+This is set to "2000" as default, which means that the countdown counts to 20:00 - or 8pm.
+When the timer hits 0 it executes your strategy.
+
+The countdown runs for 24h but resets at the time defined in the `countdownResetTime` variable.
+You can set this value, as you please. Midnight being "0000" and noon being "1200".
 # Donations
 If this script helps you, consider supporting me by sending an airdrop: 
 - **wallet:** *0x361472B5784e83fBF779b015f75ea0722741f304*
