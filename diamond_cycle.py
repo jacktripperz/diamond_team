@@ -47,9 +47,6 @@ def withdraw():
 def get_user_info():
     return dm_contract.functions.userInfo(wallet_public_addr).call()
 
-def get_user_payout():
-    return dm_contract.functions.payoutOf(wallet_public_addr).call()
-
 def payout_to_reinvest():
     total = dm_contract.functions.payoutToReinvest(wallet_public_addr).call()
     return total/1000000000000000000
@@ -109,7 +106,6 @@ def itterate(nextCycleId, nextCycleType):
     cycleMinimumBnb = findCycleMinimumBnb(nextCycleId)
     secondsUntilCycle = seconds_until_cycle(findCycleEndTimerAt(nextCycleId))
     userInfo = get_user_info()
-    payoutInfo = get_user_payout()
     accountValue = userInfo[2]/1000000000000000000
     directBonus = userInfo[4]/1000000000000000000
     poolBonus = userInfo[5]/1000000000000000000
@@ -122,11 +118,11 @@ def itterate(nextCycleId, nextCycleType):
 
     sleep = loop_sleep_seconds 
     
-    print("********** STATS *******")
+    print("********** MyDiamondTeam *******")
     print(f"{timestampStr} Next cycle type: {nextCycleType}")
     print(f"{timestampStr} Total value: {accountValue:.5f} BNB")
     print(f"{timestampStr} Payout available for reinvest/withdrawal: {payoutToReinvest:.8f}")
-    print(f"{timestampStr} Start polling each {(loop_sleep_seconds / 60):.2f} minute {(start_polling_threshold_in_seconds / 60):.3f} minutes before next cycle")
+    print(f"{timestampStr} Minimum BNB set for reinvest/withdrawal: {cycleMinimumBnb:.8f}")
     print("************************")
 
     if secondsUntilCycle > start_polling_threshold_in_seconds:
@@ -142,10 +138,10 @@ def itterate(nextCycleId, nextCycleType):
         
         if nextCycleType == "reinvest":
             print("********** REINVESTED *******")
-            print(f"{timestampStr} Added {payoutToReinvest:.8f} BNB to the pool!")
+            print(f"{timestampStr} Reinvested {payoutToReinvest:.8f} BNB to the pool!")
         if nextCycleType == "withdraw":
             print("********** WITHDREW *********")
-            print(f"{timestampStr} Sold {payoutToReinvest:.8f} BNB!")
+            print(f"{timestampStr} Withdrew {payoutToReinvest:.8f} BNB!")
 
         nextCycleId = getNextCycleId(nextCycleId)
         nextCycleType = findCycleType(nextCycleId)
