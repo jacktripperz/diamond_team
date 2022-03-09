@@ -32,7 +32,7 @@ class cycleItem:
 
 # cycle types are "reinvest" or "withdraw"
 cycle = [] 
-cycle.append( cycleItem(1, "reinvest", "2000", 0.002) )
+cycle.append( cycleItem(1, "reinvest", "20:00", 0.002) )
 nextCycleId = 1
 
 # methods
@@ -96,7 +96,7 @@ def getNextCycleId(currentCycleId):
 
 def seconds_until_cycle(endTimerAt):
     time_delta = datetime.combine(
-        datetime.now().date(), datetime.strptime(endTimerAt, "%H%M").time()
+        datetime.now().date(), datetime.strptime(endTimerAt, "%H:%M").time()
     ) - datetime.now()
     return time_delta.seconds
 
