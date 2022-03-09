@@ -121,6 +121,7 @@ def itterate(nextCycleId, nextCycleType):
     print("********** MyDiamondTeam *******")
     print(f"{timestampStr} Next cycle type: {nextCycleType}")
     print(f"{timestampStr} Total value: {accountValue:.5f} BNB")
+    print(f"{timestampStr} Estimated daily returns: {accountValue*0.015:.8f}")
     print(f"{timestampStr} Payout available for reinvest/withdrawal: {payoutToReinvest:.8f}")
     print(f"{timestampStr} Minimum BNB set for reinvest/withdrawal: {cycleMinimumBnb:.8f}")
     print("************************")
