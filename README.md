@@ -80,26 +80,20 @@ Open up the `diamond_cycle.py` and search for the section where the `cycle` is d
 One cycle includes 3 inputs:
 - Id (1-indexed, meaning that the first cycle should always start with 1)
 - Type (either use `reinvest` or `withdraw`)
+- EndTimerAt specifies the time of day where the timer should end. Enabling you to set a strategy that executes every 24h, 12h or even 1h.
 - MinimumBnb (you might be able to reinvest because 24h has past but you only want to reinvest, when you have a minimum BNB of this value)
 
 Each cycle is defined by one item. Set as many items you want - just make sure to increment the Id of each item. When the cycle ends, it starts again from the top.
 The following is an example of a cycle:
 ```py
-cycle.append( cycleItem(1, "reinvest", 0.002) )
-cycle.append( cycleItem(2, "reinvest", 0.002) )
-cycle.append( cycleItem(3, "reinvest", 0.002) )
-cycle.append( cycleItem(4, "withdraw", 0.002) )
+cycle.append( cycleItem(1, "reinvest", "2000", 0.002) )
+cycle.append( cycleItem(2, "reinvest", "0800", 0.002) )
+cycle.append( cycleItem(3, "reinvest", "2000", 0.002) )
+cycle.append( cycleItem(4, "withdraw", "0800", 0.002) )
 ```
 
 Defaults for the cycle is only to `reinvest`.
 
-## Countdown settings
-Open up the `diamond_cycle.py`. In the top of the file you will find the variable called `countdownResetTime`.
-This is set to "2000" as default, which means that the countdown counts to 20:00 - or 8pm.
-When the timer hits 0 it executes your strategy.
-
-The countdown runs for 24h but resets at the time defined in the `countdownResetTime` variable.
-You can set this value, as you please. Midnight being "0000" and noon being "1200".
 # Donations
 If this script helps you, consider supporting me by sending an airdrop: 
 - **wallet:** *0x361472B5784e83fBF779b015f75ea0722741f304*
