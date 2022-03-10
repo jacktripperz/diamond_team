@@ -32,10 +32,10 @@ class cycleItem:
 
 # cycle types are "reinvest" or "withdraw"
 cycle = []
-cycle.append( cycleItem(1, "reinvest", "20:00", 0.002) )
-cycle.append( cycleItem(1, "reinvest", "20:00", 0.002) )
-cycle.append( cycleItem(1, "reinvest", "20:00", 0.002) )
-cycle.append( cycleItem(1, "withdraw", "20:00", 0.002) )
+cycle.append( cycleItem(1, "reinvest", "20:18", 0.002) )
+cycle.append( cycleItem(2, "reinvest", "20:00", 0.002) )
+cycle.append( cycleItem(3, "reinvest", "20:00", 0.002) )
+cycle.append( cycleItem(4, "withdraw", "20:00", 0.002) )
 nextCycleId = 1
 
 # methods
