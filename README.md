@@ -61,7 +61,7 @@ $ python -m pip install python-dotenv
 6. Take the output value from the last line `encMessage.decode()`, create a file called `key.txt` and save the output in the file. 
 7. Save the `key.text` to the root of the project.
 
-8. Open the `diamond_cycle.py` file and replace the string stored in `wallet_public_addr` with your own public wallet.
+8. Create a file called `pa.txt`, paste your public wallet address in and save the file to the root of the project.
 
 ## Usage
 
