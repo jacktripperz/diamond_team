@@ -7,6 +7,7 @@ __pycache__/
 *.so
 .env
 key.txt
+pa.txt
 
 # Distribution / packaging
 .Python

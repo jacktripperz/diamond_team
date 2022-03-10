@@ -6,14 +6,14 @@ import time
 import json
 
 dm_contract_addr = "0x3AEDafF8FB09A4109Be8c10CF0c017d3f1F7DcDc"
-wallet_public_addr = "0x361472B5784e83fBF779b015f75ea0722741f304"
 loop_sleep_seconds = 2
-margin_of_error = 0.1
 start_polling_threshold_in_seconds = 0
-#countdownResetTime = "2000"
 
 # load private key
 wallet_private_key = open('key.txt', "r").readline()
+
+# load public address
+wallet_public_addr = open('pa.txt', "r").readline()
 
 # load abi
 f = open('diamond_team_abi.json')
@@ -31,8 +31,11 @@ class cycleItem:
         self.minimumBnb = minimumBnb
 
 # cycle types are "reinvest" or "withdraw"
-cycle = [] 
+cycle = []
 cycle.append( cycleItem(1, "reinvest", "20:00", 0.002) )
+cycle.append( cycleItem(1, "reinvest", "20:00", 0.002) )
+cycle.append( cycleItem(1, "reinvest", "20:00", 0.002) )
+cycle.append( cycleItem(1, "withdraw", "20:00", 0.002) )
 nextCycleId = 1
 
 # methods
