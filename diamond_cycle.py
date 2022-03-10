@@ -1,6 +1,7 @@
 import json
 import time
 import contract as c
+import cyclemanager as cmanager
 from datetime import datetime,timedelta
 import time
 import json
@@ -22,20 +23,7 @@ dm_abi = json.load(f)
 # create contract
 dm_contract = c.connect_to_contract(dm_contract_addr, dm_abi)
 
-# cycle class
-class cycleItem: 
-    def __init__(self, id, type, endTimerAt, minimumBnb): 
-        self.id = id 
-        self.type = type
-        self.endTimerAt = endTimerAt
-        self.minimumBnb = minimumBnb
-
-# cycle types are "reinvest" or "withdraw"
-cycle = []
-cycle.append( cycleItem(1, "reinvest", "20:18", 0.002) )
-cycle.append( cycleItem(2, "reinvest", "20:00", 0.002) )
-cycle.append( cycleItem(3, "reinvest", "20:00", 0.002) )
-cycle.append( cycleItem(4, "withdraw", "20:00", 0.002) )
+cycle = cmanager.build_cycle_from_config()
 nextCycleId = 1
 
 # methods

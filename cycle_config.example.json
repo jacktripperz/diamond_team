@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "type": "reinvest",
+    "endTimerAt": "20:00",
+    "minimumBnb": 0.008
+  },
+  {
+    "id": 2,
+    "type": "reinvest",
+    "endTimerAt": "20:00",
+    "minimumBnb": 0.008
+  },
+  {
+    "id": 3,
+    "type": "reinvest",
+    "endTimerAt": "20:00",
+    "minimumBnb": 0.008
+  },
+  {
+    "id": 4,
+    "type": "reinvest",
+    "endTimerAt": "20:00",
+    "minimumBnb": 0.008
+  }
+]

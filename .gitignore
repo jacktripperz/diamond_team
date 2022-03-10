@@ -8,6 +8,7 @@ __pycache__/
 .env
 key.txt
 pa.txt
+cycle_config.json
 
 # Distribution / packaging
 .Python
