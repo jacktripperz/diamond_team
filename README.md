@@ -62,7 +62,7 @@ $ python -m pip install python-dotenv
 7. Save the `key.text` to the root of the project.
 
 8. Create a file called `pa.txt`, paste your public wallet address in and save the file to the root of the project.
-9. Copy the file `cycle_config.example.json` and save it as `cycle_config.json`. This file contains the definition of your strategy cycle.  [See the Cycle settings](#-cycle-settings) on how to modify your cycle strategy.
+9. Copy the file `cycle_config.example.json` and save it as `cycle_config.json`. This file contains the definition of your strategy cycle.  [See the Cycle settings](#cycle-settings) on how to modify your cycle strategy.
 
 ## Cycle settings
 The script includes a cycle-manager. This means that you can determine a cycle on when to `reinvest` and when to `withdraw`.
