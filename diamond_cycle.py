@@ -14,7 +14,7 @@ start_polling_threshold_in_seconds = 0
 wallet_private_key = open('key.txt', "r").readline()
 
 # load public address
-wallet_public_addr = open('pa.txt', "r").readline()
+wallet_public_addr = open('pa.txt', "r").readline().strip().strip('\'').strip('\"').strip()
 
 # load abi
 f = open('diamond_team_abi.json')
@@ -38,9 +38,16 @@ def withdraw():
 def get_user_info():
     return dm_contract.functions.userInfo(wallet_public_addr).call()
 
-def payout_to_reinvest():
+def daily_payout():
     total = dm_contract.functions.payoutToReinvest(wallet_public_addr).call()
     return total/1000000000000000000
+
+def payout_to_reinvest(userInfo):
+    directBonus = userInfo[4]/1000000000000000000
+    poolBonus = userInfo[5]/1000000000000000000
+    matchBonus = userInfo[6]/1000000000000000000
+    dailyPayout = daily_payout()
+    return dailyPayout + directBonus + poolBonus + matchBonus
 
 def buildTimer(t):
     mins, secs = divmod(int(t), 60)
@@ -98,11 +105,7 @@ def itterate(nextCycleId, nextCycleType):
     secondsUntilCycle = seconds_until_cycle(findCycleEndTimerAt(nextCycleId))
     userInfo = get_user_info()
     accountValue = userInfo[2]/1000000000000000000
-    directBonus = userInfo[4]/1000000000000000000
-    poolBonus = userInfo[5]/1000000000000000000
-    matchBonus = userInfo[6]/1000000000000000000
-    dailyPayout = payout_to_reinvest()
-    payoutToReinvest = dailyPayout + directBonus + poolBonus + matchBonus
+    payoutToReinvest = payout_to_reinvest(userInfo)
 
     dateTimeObj = datetime.now()
     timestampStr = dateTimeObj.strftime("[%d-%b-%Y (%H:%M:%S)]")
@@ -121,6 +124,9 @@ def itterate(nextCycleId, nextCycleType):
         sleep = secondsUntilCycle - start_polling_threshold_in_seconds
 
     countdown(int(sleep))
+
+    userInfo = get_user_info()
+    payoutToReinvest = payout_to_reinvest(userInfo)
 
     if payoutToReinvest >= cycleMinimumBnb:
         if nextCycleType == "reinvest":
