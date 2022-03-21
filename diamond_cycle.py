@@ -141,21 +141,25 @@ def itterate(nextCycleId, nextCycleType):
             print("********** WITHDREW *********")
             print(f"{timestampStr} Withdrew {payoutToReinvest:.8f} BNB!")
 
-        nextCycleId = getNextCycleId(nextCycleId)
-        nextCycleType = findCycleType(nextCycleId)
-        print(f"{timestampStr} Next cycleId is: {nextCycleId}")
-        print(f"{timestampStr} Next cycle type will be: {nextCycleType}")
+        internalNextCycleId = getNextCycleId(nextCycleId)
+        internalNextCycleType = findCycleType(nextCycleId)
+        print(f"{timestampStr} Next cycleId is: {internalNextCycleId}")
+        print(f"{timestampStr} Next cycle type will be: {internalNextCycleType}")
         print("**************************")
 
         print(f"{timestampStr} Sleeping for 1 min until next cycle starts..")
         countdown(60)
+
+        return internalNextCycleId, internalNextCycleType
  
 
 retryCount = 0
 while True:
     try: 
         if retryCount < 5:
-            itterate(nextCycleId, nextCycleType)  
+            result = itterate(nextCycleId, nextCycleType)
+            nextCycleId = result[0]
+            nextCycleType = result[1]
     except Exception as e:
         print("[EXCEPTION] Something went wrong! Message:")
         print(f"[EXCEPTION] {e}")
