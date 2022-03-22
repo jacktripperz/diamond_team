@@ -90,7 +90,8 @@ def getNextCycleId(currentCycleId):
     if currentCycleId == cycleLength:
         return 1
     else:
-        return currentCycleId + 1
+        newCycleId = currentCycleId + 1
+        return newCycleId
 
 def seconds_until_cycle(endTimerAt):
     time_delta = datetime.combine(
@@ -101,6 +102,7 @@ def seconds_until_cycle(endTimerAt):
 # create infinate loop that checks contract every set sleep time
 nextCycleType = findCycleType(nextCycleId)
 def itterate(nextCycleId, nextCycleType):
+    testinternalNextCycleId = getNextCycleId(nextCycleId)
     cycleMinimumBnb = findCycleMinimumBnb(nextCycleId)
     secondsUntilCycle = seconds_until_cycle(findCycleEndTimerAt(nextCycleId))
     userInfo = get_user_info()
@@ -142,7 +144,7 @@ def itterate(nextCycleId, nextCycleType):
             print(f"{timestampStr} Withdrew {payoutToReinvest:.8f} BNB!")
 
         internalNextCycleId = getNextCycleId(nextCycleId)
-        internalNextCycleType = findCycleType(nextCycleId)
+        internalNextCycleType = findCycleType(internalNextCycleId)
         print(f"{timestampStr} Next cycleId is: {internalNextCycleId}")
         print(f"{timestampStr} Next cycle type will be: {internalNextCycleType}")
         print("**************************")
