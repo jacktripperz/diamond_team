@@ -77,6 +77,9 @@ Each cycle is defined by one iteration. Set as many iterations you want - just m
 
 Defaults for each iteration in the example is set to `reinvest` and to execute every day at "20:00" (8pm).
 
+### Persisted cycle settings
+Cycle settings from your `cycle_config.json` are persisted. This means that the `nextCycleId` property is updated at the end of every cycle and you cycle loop never changes, so if you ever have to restart the script your cycle will never lose state and it will start from where it left off.
+
 ## Usage
 
 In a terminal window, navigate to the location where you saved all the files. Run the `diamond_cycle.py` file.
