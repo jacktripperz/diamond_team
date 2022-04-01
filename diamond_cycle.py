@@ -6,7 +6,8 @@ from datetime import datetime,timedelta
 import time
 import json
 
-dm_contract_addr = "0x3AEDafF8FB09A4109Be8c10CF0c017d3f1F7DcDc"
+dm_contract_addr = "0x3AEDafF8FB09A4109Be8c10CF0c017d3f1F7DcDc" # this is a proxy contract
+# the real code for the proxy is here: https://bscscan.com/address/0xeb8a820edd2327dc3fc6171211ac43cf9dfd191d#code
 loop_sleep_seconds = 2
 start_polling_threshold_in_seconds = 0
 
