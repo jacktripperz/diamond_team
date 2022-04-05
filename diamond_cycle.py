@@ -116,7 +116,9 @@ def itterate(nextCycleId, nextCycleType):
     sleep = loop_sleep_seconds 
     
     print("********** MyDiamondTeam *******")
+    print(f"{timestampStr} Next cycle id: {nextCycleId}")
     print(f"{timestampStr} Next cycle type: {nextCycleType}")
+    print(f"{timestampStr} Next cycle time: {findCycleEndTimerAt(nextCycleId)}")
     print(f"{timestampStr} Total value: {accountValue:.5f} BNB")
     print(f"{timestampStr} Estimated daily returns: {accountValue*0.015:.8f}")
     print(f"{timestampStr} Payout available for reinvest/withdrawal: {payoutToReinvest:.8f}")
