@@ -1,5 +1,5 @@
 import json
-# cycle types are "rebake" or "eat"
+# cycle types are "reinvest" or "withdraw"
 
 class Iteration: 
     def __init__(self, id, type, endTimerAt, minimumBnb): 
