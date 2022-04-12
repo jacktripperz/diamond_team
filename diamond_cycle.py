@@ -103,7 +103,11 @@ def seconds_until_cycle(endTimerAt):
 # create infinate loop that checks contract every set sleep time
 nextCycleId = cmanager.getNextCycleId()
 nextCycleType = findCycleType(nextCycleId)
-def itterate(nextCycleId, nextCycleType):
+retryCount = 0
+
+def itterate():
+    global nextCycleId
+    global nextCycleType
     cycleMinimumBnb = findCycleMinimumBnb(nextCycleId)
     secondsUntilCycle = seconds_until_cycle(findCycleEndTimerAt(nextCycleId))
     userInfo = get_user_info()
@@ -149,41 +153,43 @@ def itterate(nextCycleId, nextCycleType):
         calculatedNextCycleId = calcNextCycleId(nextCycleId)
         cmanager.updateNextCycleId(calculatedNextCycleId)
 
-        internalNextCycleId = cmanager.getNextCycleId()
-        internalNextCycleType = findCycleType(internalNextCycleId)
-        print(f"{timestampStr} Next cycleId is: {internalNextCycleId}")
-        print(f"{timestampStr} Next cycle type will be: {internalNextCycleType}")
+        nextCycleId = cmanager.getNextCycleId()
+        nextCycleType = findCycleType(nextCycleId)
+        print(f"{timestampStr} Next cycleId is: {nextCycleId}")
+        print(f"{timestampStr} Next cycle type will be: {nextCycleType}")
         print("**************************")
 
         print(f"{timestampStr} Sleeping for 1 min until next cycle starts..")
         countdown(60)
 
-        return internalNextCycleId, internalNextCycleType
-
     print("********** IDLE ***********")
     calculatedNextCycleId = calcNextCycleId(nextCycleId)
     cmanager.updateNextCycleId(calculatedNextCycleId)
-    internalNextCycleId = cmanager.getNextCycleId()
-    internalNextCycleType = findCycleType(internalNextCycleId)
+    nextCycleId = cmanager.getNextCycleId()
+    nextCycleType = findCycleType(nextCycleId)
     print(f"{timestampStr} Available reinvest/withdraw did not meet the minimum requirements")
     print(f"{timestampStr} Moving on to next cycle")
-    print(f"{timestampStr} Next cycleId is: {internalNextCycleId}")
-    print(f"{timestampStr} Next cycle type will be: {internalNextCycleType}")
+    print(f"{timestampStr} Next cycleId is: {nextCycleId}")
+    print(f"{timestampStr} Next cycle type will be: {nextCycleType}")
     print("**************************")
-    return internalNextCycleId, internalNextCycleType
- 
 
-retryCount = 0
-while True:
+ 
+def run(): 
+    global retryCount
     try: 
-        if retryCount < 5:
-            result = itterate(nextCycleId, nextCycleType)
-            nextCycleId = result[0]
-            nextCycleType = result[1]
+        itterate()
+        run()
     except Exception as e:
-        print("[EXCEPTION] Something went wrong! Message:")
-        print(f"[EXCEPTION] {e}")
         retryCount = retryCount + 1
+        print("********* EXCEPTION *****************")
+        print("Something went wrong! Message:")
+        print(f"{e}")
         if retryCount < 5:
-            itterate(nextCycleId, nextCycleType)
-        print(f"[EXCEPTION] Retrying! (retryCount: {retryCount})")
+            print(f"[EXCEPTION] Retrying! (retryCount: {retryCount})")
+            print("*************************************")
+            run()
+        else:
+            print("********* TERMINATING *****************")
+            print("Expection occurred 5 times. Terminating!")
+
+run()
