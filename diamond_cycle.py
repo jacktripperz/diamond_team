@@ -150,13 +150,6 @@ def itterate():
             print("********** WITHDREW *********")
             print(f"{timestampStr} Withdrew {payoutToReinvest:.8f} BNB!")
 
-        calculatedNextCycleId = calcNextCycleId(nextCycleId)
-        cmanager.updateNextCycleId(calculatedNextCycleId)
-
-        nextCycleId = cmanager.getNextCycleId()
-        nextCycleType = findCycleType(nextCycleId)
-        print(f"{timestampStr} Next cycleId is: {nextCycleId}")
-        print(f"{timestampStr} Next cycle type will be: {nextCycleType}")
         print("**************************")
 
         print(f"{timestampStr} Sleeping for 1 min until next cycle starts..")
