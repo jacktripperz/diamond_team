@@ -183,6 +183,6 @@ def run():
             run()
         else:
             print("********* TERMINATING *****************")
-            print("Expection occurred 5 times. Terminating!")
+            print("Exception occurred 5 times. Terminating!")
 
 run()
